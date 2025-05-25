@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Asset Tracker</title>
+    <link rel="stylesheet" href="{% static 'assets/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>EAAGADS Asset Tracker</h1>
+        <nav>
+            {% if user.is_authenticated %}
+                <span>Welcome, {{ user.username }}</span> |
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a> |
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+            <a href="{% url 'add_asset' %}">Add Asset</a> |
+            <a href="{% url 'maintenance' %}">View Maintenance</a> |
+            <a href="/admin/">Admin</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>All Assets</h2>
+        <table>
+            <tr>
+                <th>Serial</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Department</th>
+                <th>Actions</th>
+            </tr>
+            {% for asset in assets %}
+            <tr>
+                <td>{{ asset.serial_number }}</td>
+                <td>{{ asset.name }}</td>
+                <td>{{ asset.status }}</td>
+                <td>{{ asset.department.name }}</td>
+                <td><a href="{% url 'edit_asset' asset.id %}">Edit</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </main>
+</body>
+</html>
