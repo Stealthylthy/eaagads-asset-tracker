@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Asset, Maintenance
 from .forms import AssetForm
-
+@login_required
 def home(request):
     assets = Asset.objects.all()
     return render(request, 'assets/index.html', {'assets': assets})
@@ -34,7 +34,7 @@ def edit_asset(request, pk):
 def maintenance_list(request):
     maintenance = Maintenance.objects.all()
     return render(request, 'assets/maintenance_list.html', {'maintenance': maintenance})
-
+@login_required
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
