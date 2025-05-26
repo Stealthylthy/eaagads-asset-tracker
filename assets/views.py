@@ -5,10 +5,31 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Asset, Maintenance
 from .forms import AssetForm
+from .models import Asset, Department, Staff, Maintenance
+
 @login_required
-def home(request):
-    assets = Asset.objects.all()
-    return render(request, 'assets/index.html', {'assets': assets})
+
+def home(request, department_id=None):
+    if department_id:
+        assets = Asset.objects.filter(department_id=department_id)
+    else:
+        assets = Asset.objects.all()
+
+    departments = Department.objects.all()
+
+    summary = {
+        'asset_count': Asset.objects.count(),
+        'department_count': Department.objects.count(),
+        'staff_count': Staff.objects.count(),
+        'maintenance_count': Maintenance.objects.count(),
+    }
+
+    return render(request, 'assets/index.html', {
+        'assets': assets,
+        'departments': departments,
+        'summary': summary,
+    })
+
 @login_required
 def add_asset(request):
     if request.method == 'POST':
