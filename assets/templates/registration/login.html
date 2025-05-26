@@ -6,17 +6,17 @@
   <link rel="stylesheet" href="{% static 'assets/style.css' %}">
 </head>
 <body>
-  <header>
-    <h1>Login</h1>
-  </header>
+<header>
+  <h1>Login</h1>
+</header>
 
-  <main class="centered-page">
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-        <p style="text-align: center;">No account? <a href="{% url 'register' %}">Register</a></p>
-    </form>
-  </main>
+<main class="centered-page">
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+    <p style="text-align: center;">No account? <a href="{% url 'register' %}">Register</a></p>
+  </form>
+</main>
 </body>
 </html>

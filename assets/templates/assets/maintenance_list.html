@@ -6,23 +6,22 @@
   <link rel="stylesheet" href="{% static 'assets/style.css' %}">
 </head>
 <body>
-  <header>
-    <h1>Maintenance Schedule</h1>
-    <nav><a href="/">Back to Assets</a></nav>
-  </header>
+<header>
+  <h1>Maintenance Schedule</h1>
+  <nav><a href="/">← Back to Assets</a></nav>
+</header>
 
-  <main>
-    <h2>Maintenance</h2>
-    {% for m in maintenance %}
-    <div class="maintenance-card">
-        <div class="asset-title">{{ m.asset.name }}</div>
-        <p class="asset-meta">Scheduled: {{ m.scheduled_date }}</p>
-        <p class="asset-meta">Description: {{ m.description }}</p>
-        <p class="asset-meta">Completed: {{ m.completed }}</p>
-    </div>
-    {% empty %}
-    <p>No maintenance scheduled.</p>
-    {% endfor %}
-  </main>
+<main>
+  {% for m in maintenance %}
+  <div class="maintenance-card">
+    <div class="asset-title">{{ m.asset.name }}</div>
+    <p class="asset-meta">Scheduled: {{ m.scheduled_date }}</p>
+    <p class="asset-meta">Description: {{ m.description }}</p>
+    <p class="asset-meta">Completed: {{ m.completed }}</p>
+  </div>
+  {% empty %}
+    <p>No maintenance records found.</p>
+  {% endfor %}
+</main>
 </body>
 </html>

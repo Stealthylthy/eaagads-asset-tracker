@@ -6,17 +6,17 @@
   <link rel="stylesheet" href="{% static 'assets/style.css' %}">
 </head>
 <body>
-  <header>
-    <h1>Register New User</h1>
-    <nav><a href="/">Back</a></nav>
-  </header>
+<header>
+  <h1>Create Account</h1>
+  <nav><a href="/">← Back</a></nav>
+</header>
 
-  <main class="centered-page">
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
-  </main>
+<main class="centered-page">
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Register</button>
+  </form>
+</main>
 </body>
 </html>
