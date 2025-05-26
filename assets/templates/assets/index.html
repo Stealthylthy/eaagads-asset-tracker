@@ -28,17 +28,10 @@
  <h2>Dashboard Summary</h2>
 <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
   <div class="asset-card" style="flex: 1;">
-    <div class="asset-title">📦 Total Assets</div>
-    <p class="asset-meta">
-  Assigned To:
-  {% if asset.assigned_to %}
-    {{ asset.assigned_to.name }}
-  {% else %}
-    Unassigned
-  {% endif %}
-</p>
+  <div class="asset-title">📦 Total Assets</div>
+  <p class="asset-meta">{{ summary.asset_count }}</p>
+</div>
 
-  </div>
   <div class="asset-card" style="flex: 1;">
     <div class="asset-title">🏢 Departments</div>
     <p class="asset-meta">{{ summary.department_count }}</p>
@@ -73,7 +66,17 @@
     <div class="asset-title">{{ asset.name }}</div>
     <p class="asset-meta">Serial: {{ asset.serial_number }}</p>
     <p class="asset-meta">Status: {{ asset.status }}</p>
-    <p class="asset-meta">Staff: {{ asset.assigned_to.name }}</p>
+    <p class="asset-meta">
+  Staff:
+  {% if asset.assigned_to %}
+    {{ asset.assigned_to.name }}
+  {% else %}
+    Unassigned
+  {% endif %}
+ </p>
+
+   
+
     <p class="asset-meta">Department: {{ asset.department.name }}</p>
     <p class="asset-meta">Purchased: {{ asset.purchase_date }}</p>
     <a href="{% url 'edit_asset' asset.id %}"><button>Edit</button></a>
