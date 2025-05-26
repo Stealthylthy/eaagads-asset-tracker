@@ -29,7 +29,15 @@
 <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
   <div class="asset-card" style="flex: 1;">
     <div class="asset-title">📦 Total Assets</div>
-    <p class="asset-meta">{{ summary.asset_count }}</p>
+    <p class="asset-meta">
+  Assigned To:
+  {% if asset.assigned_to %}
+    {{ asset.assigned_to.name }}
+  {% else %}
+    Unassigned
+  {% endif %}
+</p>
+
   </div>
   <div class="asset-card" style="flex: 1;">
     <div class="asset-title">🏢 Departments</div>
@@ -45,9 +53,19 @@
   </div>
 </div>
 
-  {% empty %}
-    <p>No departments found.</p>
-  {% endfor %}
+  <h2>Departments</h2>
+{% for dept in departments %}
+  <div class="asset-card">
+    <div class="asset-title">
+      <a href="{% url 'department_assets' dept.id %}" style="text-decoration: none; color: #2980b9;">
+        {{ dept.name }}
+      </a>
+    </div>
+  </div>
+{% empty %}
+  <p>No departments found.</p>
+{% endfor %}
+
 
   <h3>Assets</h3>
   {% for asset in assets %}
