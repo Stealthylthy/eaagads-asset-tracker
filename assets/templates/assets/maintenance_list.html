@@ -2,41 +2,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Maintenance Records</title>
-    <link rel="stylesheet" href="{% static 'assets/style.css' %}">
+  <title>Maintenance Records</title>
+  <link rel="stylesheet" href="{% static 'assets/style.css' %}">
 </head>
 <body>
-    <header>
-        <h1>Maintenance Schedule</h1>
-        <a href="/">Back to Assets</a>
-        <nav>
-        {% if user.is_authenticated %}
-                <span>Welcome, {{ user.username }}</span> |
-                <a href="{% url 'logout' %}">Logout</a>
-            {% else %}
-                <a href="{% url 'login' %}">Login</a> |
-                <a href="{% url 'register' %}">Register</a>
-            {% endif %}
-    </nav>
-    </header>
+  <header>
+    <h1>Maintenance Schedule</h1>
+    <nav><a href="/">Back to Assets</a></nav>
+  </header>
 
-    <main>
-        <table>
-            <tr>
-                <th>Asset</th>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Completed</th>
-            </tr>
-            {% for m in maintenance %}
-            <tr>
-                <td>{{ m.asset.name }}</td>
-                <td>{{ m.scheduled_date }}</td>
-                <td>{{ m.description }}</td>
-                <td>{{ m.completed }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </main>
+  <main>
+    <h2>Maintenance</h2>
+    {% for m in maintenance %}
+    <div class="maintenance-card">
+        <div class="asset-title">{{ m.asset.name }}</div>
+        <p class="asset-meta">Scheduled: {{ m.scheduled_date }}</p>
+        <p class="asset-meta">Description: {{ m.description }}</p>
+        <p class="asset-meta">Completed: {{ m.completed }}</p>
+    </div>
+    {% empty %}
+    <p>No maintenance scheduled.</p>
+    {% endfor %}
+  </main>
 </body>
 </html>

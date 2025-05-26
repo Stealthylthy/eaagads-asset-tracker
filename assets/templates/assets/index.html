@@ -2,51 +2,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Asset Tracker</title>
-    <link rel="stylesheet" href="{% static 'assets/style.css' %}">
+  <title>EAAGADS Asset Tracker</title>
+  <link rel="stylesheet" href="{% static 'assets/style.css' %}">
 </head>
 <body>
-    <header>
-        <h1>EAAGADS Asset Tracker</h1>
-        <nav>
-            {% if user.is_authenticated %}
-                <span>Welcome, {{ user.username }}</span> |
-                <form method="POST" action="{% url 'logout' %}" style="display: inline;">
-        {% csrf_token %}
-        <button type="submit" style="background: none; border: none; color: white; text-decoration: underline; cursor: pointer;">
-            Logout
-        </button>
-    </form>
-            {% else %}
-                <a href="{% url 'login' %}">Login</a> |
-                <a href="{% url 'register' %}">Register</a>
-            {% endif %}
-            <a href="{% url 'add_asset' %}">Add Asset</a> |
-            <a href="{% url 'maintenance' %}">View Maintenance</a> |
-            <a href="/admin/">Admin</a>
-        </nav>
-    </header>
+  <header>
+    <h1>EAAGADS Asset Tracker</h1>
+    <nav>
+      {% if user.is_authenticated %}
+        Welcome, {{ user.username }} |
+        <form method="POST" action="{% url 'logout' %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+        | <a href="{% url 'add_asset' %}">Add Asset</a>
+        | <a href="{% url 'maintenance' %}">Maintenance</a>
+        | <a href="/admin/">Admin</a>
+      {% else %}
+        <a href="{% url 'login' %}">Login</a> |
+        <a href="{% url 'register' %}">Register</a>
+      {% endif %}
+    </nav>
+  </header>
 
-    <main>
-        <h2>All Assets</h2>
-        <table>
-            <tr>
-                <th>Serial</th>
-                <th>Name</th>
-                <th>Status</th>
-                <th>Department</th>
-                <th>Actions</th>
-            </tr>
-            {% for asset in assets %}
-            <tr>
-                <td>{{ asset.serial_number }}</td>
-                <td>{{ asset.name }}</td>
-                <td>{{ asset.status }}</td>
-                <td>{{ asset.department.name }}</td>
-                <td><a href="{% url 'edit_asset' asset.id %}">Edit</a></td>
-            </tr>
-            {% endfor %}
-        </table>
-    </main>
+  <main>
+    <h2>All Assets</h2>
+
+    {% for asset in assets %}
+    <div class="asset-card">
+        <div class="asset-title">{{ asset.name }}</div>
+        <p class="asset-meta">Serial: {{ asset.serial_number }}</p>
+        <p class="asset-meta">Status: {{ asset.status }}</p>
+        <p class="asset-meta">Assigned Staff: {{ asset.assigned_to.name }}</p>
+        <p class="asset-meta">Department: {{ asset.department.name }}</p>
+        <p class="asset-meta">Purchased: {{ asset.purchase_date }}</p>
+        <a href="{% url 'edit_asset' asset.id %}"><button>Edit</button></a>
+    </div>
+    {% empty %}
+    <p>No assets available.</p>
+    {% endfor %}
+  </main>
 </body>
 </html>
