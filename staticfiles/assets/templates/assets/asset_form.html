@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ form.instance.pk|yesno:"Edit Asset,Add Asset" }}</title>
+  <link rel="stylesheet" href="{% static 'assets/style.css' %}">
+</head>
+<body>
+  <header>
+    <h1>{{ form.instance.pk|yesno:"Edit Asset,Add Asset" }}</h1>
+    <nav><a href="/">← Back to Assets</a></nav>
+  </header>
+
+  <main>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Save</button>
+    </form>
+  </main>
+</body>
+</html>
