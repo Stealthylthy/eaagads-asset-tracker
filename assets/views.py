@@ -66,3 +66,5 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'assets/register.html', {'form': form})
+def test_view(request):
+    return render(request, 'assets/test.html', {})
