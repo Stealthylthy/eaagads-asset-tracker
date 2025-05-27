@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: eaagads-asset-tracker
+    runtime: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn eaagads.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: eaagads.settings
